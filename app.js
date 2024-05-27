@@ -37,7 +37,7 @@ io.use((socket, next) => {
 
 });
 
-cron.schedule('03 1  * * 1-6', () => {
+cron.schedule('0 9   * * 1-6', () => {
 
     const time = new Date();
     const currentTime = time.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
@@ -47,7 +47,21 @@ cron.schedule('03 1  * * 1-6', () => {
     };
   
     array.forEach(user => {
-      io.to(user.socketId).emit('notification', notification);
+      io.to(user.socketId).emit('checkInnotification', notification);
+    });
+  });
+
+  cron.schedule('30 18  * * 1-6', () => {
+
+    const time = new Date();
+    const currentTime = time.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+    const notification = {
+      message: 'This is a reminder that check-Out time is at 6:30 AM. Please Check Out, Thank You 🙏',
+      Time: currentTime
+    };
+  
+    array.forEach(user => {
+      io.to(user.socketId).emit('checkOutnotification', notification);
     });
   });
 
