@@ -53,9 +53,7 @@ cron.schedule('0 9   * * 1-6', () => {
       Time: currentTime
     };
   
-    array.forEach(user => {
-      io.to(user.socketId).emit('checkInnotification', notification);
-    });
+      io.emit('checkInnotification', notification);
   });
 
   cron.schedule('30 18  * * 1-6', () => {
@@ -67,9 +65,7 @@ cron.schedule('0 9   * * 1-6', () => {
       Time: currentTime
     };
   
-    array.forEach(user => {
-      io.to(user.socketId).emit('checkOutnotification', notification);
-    });
+      io.emit('checkOutnotification', notification);
   });
 
   app.use('/admin/leaveApproval', tockenCheck,
